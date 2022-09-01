@@ -1,8 +1,10 @@
 from flask import Flask, render_template_string
+from flask_cors import CORS
 from get_data import fetch_data, compute_date_information
 from filter_data import get_total_sales
 
 app = Flask(__name__)
+CORS(app)
 
 data = fetch_data()
 data = compute_date_information(data)
@@ -10,7 +12,7 @@ data = compute_date_information(data)
 
 @app.route('/')
 def home():
-    return "Hola mundo"
+    return "Aplicación de Visualización de Datos de Restaurant"
 
 
 @app.route('/all_data')
