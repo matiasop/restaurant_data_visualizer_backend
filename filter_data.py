@@ -54,6 +54,15 @@ def transform_sales_format(sales):
     return {"labels": labels, "datasets": dict(result)}
 
 
+def get_sales_per_category(data, period, category):
+    sales = total_sales_per_group(period, data, "category")
+    result = {}
+    for key in sales:
+        result[key] = sales[key][category]
+    formatted_sales = transform_sales_format(sales)
+    return formatted_sales
+
+
 def get_total_sales(group, data, aggregator):
     sales = total_sales_per_group(group, data, aggregator)
     formatted_sales = transform_sales_format(sales)

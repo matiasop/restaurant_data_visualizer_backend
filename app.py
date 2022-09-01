@@ -1,7 +1,7 @@
 from flask import Flask, render_template_string
 from flask_cors import CORS
 from get_data import fetch_data, compute_date_information
-from filter_data import get_total_sales
+from filter_data import get_total_sales, get_sales_per_category
 
 app = Flask(__name__)
 CORS(app)
@@ -30,6 +30,14 @@ def total_sales(group):
         return render_template_string('PageNotFound {{ errorCode }}', errorCode='404')
 
     return get_total_sales(group, data, aggregator)
+
+
+@app.route('/sales_per_category/<period>/<category>')
+def sales_per_category(period, category):
+    if period not in ["mont", "weekday"]:
+        return render_template_string('PageNotFound {{ errorCode }}', errorCode='404')
+
+    return get_sales_per_category(data, period, category)
 
 
 if __name__ == "__main__":
