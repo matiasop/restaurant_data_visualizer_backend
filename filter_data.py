@@ -67,3 +67,9 @@ def get_total_sales(group, data, aggregator):
     sales = total_sales_per_group(group, data, aggregator)
     formatted_sales = transform_sales_format(sales)
     return formatted_sales
+
+
+def get_sales(group, data):
+    sales = total_sales_per_group(group, data, "category")
+    total = {g: sum(sales[g].values()) for g in sales}
+    return {"labels": list(total.keys()), "datasets": list(total.values())}
